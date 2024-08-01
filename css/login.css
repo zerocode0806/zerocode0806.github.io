@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #040D12;
+    overflow-y: hidden;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    max-width: 850px;
+    background: #F0F0F0;
+    border-radius: 15px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login {
+    width: 400px;
+}
+
+form {
+    width: 250px;
+    margin: 60px auto;
+}
+
+h1 {
+    margin: 20px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+p {
+    text-align: center;
+    margin: 10px;
+}
+
+hr {
+    border-top: 2px solid #040D12;
+}
+
+.pic img {
+    width: 450px;
+    height: 100%;
+    border-bottom-right-radius: 15px;
+}
+
+form label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px;
+}
+
+input {
+    width: 100%;
+    margin: 2px;
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+button {
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 121px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+    background: #040D12;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+.btn-signup {
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 121px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+    background: #040D12;
+    position: relative;
+    top: -120px;
+    right: -132px;
+}
+
+.btn-signup:hover {
+    background: #2980b9;
+}
+
+.btn-signin {
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 121px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+    background: #040D12;
+    position: relative;
+    top: -166px;
+    right: -132px;
+}
+
+.btn-signin:hover {
+    background: #2980b9;
+}
+
+p {
+    margin: 20px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}

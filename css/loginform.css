@@ -1,0 +1,117 @@
+div {
+  width: 80%;
+  margin: auto;
+}
+
+img {
+  border: 1px solid black;
+}
+
+p {
+  padding: 8px;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  font-family: Arial, Helvetica, sans-serif;
+  background: darkorange;
+  list-style: none;
+  margin: 0px;
+  padding-left: 0px;
+}
+
+ul li {
+  color: #fff;
+  background: darkorange;
+  display: block;
+  float: left;
+  padding: 1rem;
+  position: relative;
+  text-decoration: none;
+}
+
+ul li a {
+  color: #fff;
+}
+
+ul li:hover {
+  background: red;
+  cursor: pointer;
+}
+
+ul li ul {
+  background: orange;
+  visibility: hidden;
+  position: absolute;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 10px; /* Menambahkan margin untuk merapikan jarak antara card */
+  padding: 16px;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.card:hover {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+
+/* Penyesuaian untuk tampilan ponsel */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  ul.nav-tabs {
+    flex-direction: column;
+  }
+
+  ul.nav-tabs li {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+/* Penyesuaian untuk tampilan tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+/* Penyesuaian untuk tampilan desktop */
+@media (min-width: 1025px) {
+  body {
+    font-size: 20px;
+  }
+
+  .container {
+    width: 80%;
+  }
+}

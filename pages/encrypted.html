@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/encrypted.css">
+    <title>Translator Hub</title>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <h1>Translator Hub</h1>
+            <div class="dropdown">
+                <button onclick="toggleDropdown('translatorDropdown')" class="dropbtn">Choose Translator</button>
+                <div id="translatorDropdown" class="dropdown-content" style="display: none;">
+                    <a href="#" onclick="selectTranslator('morse')">Morse Code</a>
+                    <a href="#" onclick="selectTranslator('caesar')">Caesar Cipher</a>
+                </div>
+            </div>
+        </nav>
+
+        <div id="morseTranslator" class="translator" style="display: none;">
+            <h2>Morse Code Translator</h2>
+            <label for="morseInput">Enter Text:</label>
+            <input type="text" id="morseInput" placeholder="e.g., Hello">
+            <button onclick="translateMorse()">Translate to Morse Code</button>
+            <p id="morseResult"></p>
+        </div>
+
+        <div id="caesarTranslator" class="translator" style="display: none;">
+            <h2>Caesar Cipher Translator</h2>
+            <label for="caesarInput">Enter Text:</label>
+            <input type="text" id="caesarInput" placeholder="e.g., Hello">
+            <label for="caesarKey">Enter Key (0-25):</label>
+            <input type="number" id="caesarKey" min="0" max="25" placeholder="e.g., 3">
+            <button onclick="translateCaesar()">Translate with Caesar Cipher</button>
+            <p id="caesarResult"></p>
+        </div>
+    </div>
+
+    <script src="/scirpt/encrypted.js"></script>
+</body>
+</html>

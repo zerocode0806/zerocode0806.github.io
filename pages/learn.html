@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: linear-gradient(120deg, rgb(90, 46, 46), black);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        h1 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 600px;
+            background-color: rgba(44, 64, 90, 0.8);
+            border: 2px solid rgba(158, 64, 64, 0.856);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid rgba(158, 64, 64, 0.856);
+            padding: 10px;
+            color: white;
+        }
+
+        th {
+            background-color: rgba(158, 64, 64, 0.856);
+        }
+
+        .subjudul {
+            background-color: rgba(158, 64, 64, 0.856);
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(44, 64, 90, 0.6);
+        }
+
+        tr:hover {
+            background-color: rgba(44, 64, 90, 0.4);
+        }
+
+        .List {
+            color: white;
+        }
+
+        .List {
+            font-family: Arial, sans-serif;
+            margin-left: 20px;
+            
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <h1>Tabel</h1>
+    <table border="1">
+        <tr>
+            <th rowspan="2">Nama</th>
+            <th rowspan="2">Kelas</th>
+            <th rowspan="2">No Absen</th>
+            <th colspan="4">Nilai</th>
+        </tr>
+        <tr class="subjudul">
+            <td>Tugas1</td>
+            <td>Tugas2</td>
+            <td>Tugas3</td>
+            <td>Tugas Akhir</td>
+        </tr>
+        <tr>
+            <td>M Ubaidillah Dahlan</td>
+            <td>XI RPL 4</td>
+            <td>35</td>
+            <td>80</td>
+            <td>90</td>
+            <td>90</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>Zacky Zakariya</td>
+            <td>XI RPL 4</td>
+            <td>36</td>
+            <td>80</td>
+            <td>85</td>
+            <td>85</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>Naila Moza</td>
+            <td>XI RPL 4</td>
+            <td>37</td>
+            <td>95</td>
+            <td>80</td>
+            <td>80</td>
+            <td>80</td>
+        </tr>
+        <tr>
+            <td>Naila Moza</td>
+            <td>XI RPL 4</td>
+            <td>37</td>
+            <td>95</td>
+            <td>80</td>
+            <td>80</td>
+            <td>80</td>
+        </tr>
+        <tr>
+            <td>Naila Moza</td>
+            <td>XI RPL 4</td>
+            <td>37</td>
+            <td>95</td>
+            <td>80</td>
+            <td>80</td>
+            <td>80</td>
+        </tr>
+        <tr>
+            <td>Naila Moza</td>
+            <td>XI RPL 4</td>
+            <td>37</td>
+            <td>95</td>
+            <td>80</td>
+            <td>80</td>
+            <td>80</td>
+        </tr>
+    </table>
+    <br>
+    <h1>List</h1>
+    <div class="List">
+        <h3>Ordered list :</h3>
+        <ol>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ol>
+        <h3>Unordered list :</h3>
+        <ul>
+            <li>Item A</li>
+            <li>Item B</li>
+            <li>Item C</li>
+        </ul>
+        <h3>Description list :</h3>
+        <dl>
+            <dt>Kucing</dt>
+            <dd>Hewan peliharaan yang suka bermain.</dd>
+            <dt>Anjing</dt>
+            <dd>Hewan peliharaan yang setia.</dd>
+        </dl>
+        <h3>Nested list</h3>
+        <ul>
+            <li>Makanan
+                <ul>
+                    <li>Buah
+                        <ul>
+                            <li>Apel</li>
+                            <li>Pisang</li>
+                        </ul>
+                    </li>
+                    <li>Makanan Ringan
+                        <ul>
+                            <li>Keripik</li>
+                            <li>Kue</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Minuman
+                <ul>
+                    <li>Air
+                        <ul>
+                            <li>Mineral</li>
+                            <li>Ringan</li>
+                        </ul>
+                    </li>
+                    <li>Jus</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <br>
+
+</body>
+
+</html>
