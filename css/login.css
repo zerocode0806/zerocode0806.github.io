@@ -12,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #595959;
+    background: #1e1e1e;
     overflow-y: hidden;
     padding: 20px;
 }
@@ -20,7 +20,7 @@ body {
 .container {
     width: 100%;
     max-width: 330px;
-    background: #a6a6a6;
+    background: #595959;
     border-radius: 15px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -35,6 +35,10 @@ body {
     margin: auto;
 }
 
+.login label {
+    color: #a6a6a6;
+}
+
 form {
     width: 100%;
     max-width: 350px;
@@ -47,11 +51,13 @@ h1 {
     text-align: center;
     font-weight: bold;
     text-transform: uppercase;
+    color: #a6a6a6;
 }
 
 p {
     text-align: center;
     margin: 10px 0;
+    color: #a6a6a6;
 }
 
 hr {
@@ -73,6 +79,8 @@ input {
     border: 1px solid grey;
     border-radius: 5px;
     outline: none;
+    background: #1e1e1e;
+    color: #a6a6a6;
 }
 
 button {
@@ -84,12 +92,13 @@ button {
     cursor: pointer;
     margin-top: 20px;
     border-radius: 5px;
-    background: #595959;
+    background: #1e1e1e;
     transition: background 0.3s ease;
 }
 
 button:hover {
     background: #1e1e1e;
+    box-shadow: 0 0 0.5rem #1e1e1e;
 }
 
 .btn-signup {
