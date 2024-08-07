@@ -20,7 +20,7 @@ body {
 .container {
     width: 100%;
     max-width: 330px;
-    background: #F0F0F0;
+    background: #a6a6a6;
     border-radius: 15px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -55,7 +55,7 @@ p {
 }
 
 hr {
-    border-top: 2px solid #040D12;
+    border-top: 2px solid #a6a6a6;
     margin: 20px 0;
 }
 
@@ -79,17 +79,17 @@ button {
     border: none;
     padding: 10px;
     width: 100%;
-    color: #fff;
+    color: #a6a6a6;
     font-size: 16px;
     cursor: pointer;
     margin-top: 20px;
     border-radius: 5px;
-    background: #040D12;
+    background: #595959;
     transition: background 0.3s ease;
 }
 
 button:hover {
-    background: #2980b9;
+    background: #1e1e1e;
 }
 
 .btn-signup {
@@ -98,7 +98,8 @@ button:hover {
 }
 
 .btn-signup:hover {
-    background: #1e1e1e;
+    background: #d0d0d0;
+    color: #1e1e1e;
 }
 
 .btn-signin {
@@ -107,7 +108,9 @@ button:hover {
 }
 
 .btn-signin:hover {
-    background: #1e1e1e;
+    background: #d0d0d0;
+    color: #1e1e1e;
+
 }
 
 a {
