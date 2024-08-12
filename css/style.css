@@ -257,6 +257,7 @@ span{
     box-shadow: 0 0 1rem  var(--bg-color);
     overflow: hidden;
     display: flex;
+    color: var(--bg-color);
 }
 
 .portfolio-box img {
@@ -330,6 +331,7 @@ span{
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+    
 }
 
 .portfolio-layer a i {
