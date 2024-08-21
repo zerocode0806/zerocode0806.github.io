@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/project/css/utilityhub.css">
+    <title>Utility & Translator Hub</title>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <h1>Utility Hub</h1>
+            <div class="dropdown">
+                <button class="dropbtn" onclick="toggleDropdown()">Menu</button>
+                <div id="optionDropdown" class="dropdown-content">
+                    <a href="#" onclick="selectUtility('home')">Home</a>
+                    <a href="#" onclick="selectUtility('ageCalculator')">Age Calculator</a>
+                    <a href="#" onclick="selectUtility('currencyConverter')">Currency Converter</a>
+                    <a href="#" onclick="selectUtility('morseCodeTranslator')">Morse Code Translator</a>
+                    <a href="#" onclick="selectUtility('caesarCipherTranslator')">Caesar Cipher Translator</a>
+                    <a href="#" onclick="selectUtility('textToSpeech')">Text-to-Speech</a>
+                    <a href="#" onclick="selectUtility('calculator')">Calculator</a>
+ <!-- Menu baru -->
+                </div>
+            </div>
+        </nav>
+
+        <div id="home" class="utility">
+            <p>Welcome to Utility Hub! Choose an option from the navigation menu.</p>
+        </div>
+
+        <div id="ageCalculator" class="utility" style="display: none;">
+            <h2>Age Calculator</h2>
+            <label for="birthYear">Enter Birth Year:</label>
+            <input type="number" id="birthYear" placeholder="e.g., 1990">
+            <button onclick="calculateAge()">Calculate Age</button>
+            <p id="ageResult"></p>
+        </div>
+
+        <div id="currencyConverter" class="utility" style="display: none;">
+            <h2>Currency Converter</h2>
+            <label for="usdAmount">Enter USD Amount:</label>
+            <input type="number" id="usdAmount" placeholder="e.g., 100">
+            <button onclick="convertCurrency()">Convert to IDR</button>
+            <p id="idrResult"></p>
+        </div>
+
+        <div id="morseCodeTranslator" class="utility" style="display: none;">
+            <h2>Morse Code Translator</h2>
+            <label for="translatorInput">Enter Text:</label>
+            <input type="text" id="translatorInput" placeholder="e.g., Hello">
+            <select id="morseOption">
+                <option value="textToMorse">Text to Morse</option>
+                <option value="morseToText">Morse to Text</option>
+            </select>
+            <button onclick="translateText()">Translate</button>
+            <p id="result"></p>
+        </div>
+
+        <div id="caesarCipherTranslator" class="utility" style="display: none;">
+            <h2>Caesar Cipher Translator</h2>
+            <label for="caesarInput">Enter Text:</label>
+            <input type="text" id="caesarInput" placeholder="e.g., Hello">
+            <label for="caesarKey">Enter Key:</label>
+            <input type="number" id="caesarKey" placeholder="Enter key">
+            <select id="caesarOption">
+                <option value="encrypt">Encrypt</option>
+                <option value="decrypt">Decrypt</option>
+            </select>
+            <button onclick="translateCaesar()">Translate</button>
+            <p id="caesarResult"></p>
+        </div>
+
+        <div id="textToSpeech" class="utility" style="display: none;"> <!-- Bagian baru untuk Text-to-Speech -->
+            <h2>Text-to-Speech</h2>
+            <label for="speechInput">Enter Text:</label>
+            <input type="text" id="speechInput" placeholder="Enter text here">
+            <label for="languageSelect">Select Language:</label>
+            <select id="languageSelect">
+                <option value="en-US">English (US)</option>
+                <option value="id-ID">Indonesian</option>
+            </select>
+            <button onclick="speak()">Speak</button>
+        </div>
+
+        <div id="calculator" class="utility" style="display: none;">
+            <h2>Calculator</h2>
+            <input type="text" id="calculatorInput" placeholder="Enter expression (e.g., 2+2)">
+            <button onclick="calculate()">Calculate</button>
+            <p id="calculatorResult"></p>
+        </div>
+        
+    </div>
+
+    <script src="/project/js/utilityhub.js"></script>
+</body>
+</html>
