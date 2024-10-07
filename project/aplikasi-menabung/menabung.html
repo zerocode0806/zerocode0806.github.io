@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Aplikasi Menabung</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Aplikasi Menabung</h1>
+        
+        <div class="input-group">
+            <label for="target">Target Tabungan:</label>
+            <input type="number" id="target" placeholder="Masukkan target tabungan..." />
+        </div>
+        
+        <div class="input-group">
+            <label for="amount">Jumlah Tabungan per Hari:</label>
+            <input type="number" id="amount" placeholder="Masukkan jumlah..." />
+            <button id="addBtn">Tambahkan</button>
+        </div>
+
+        <div class="total">
+            <h2>Total Tabungan: <span id="totalAmount">0</span> RP</h2>
+            <h2>Target Tabungan: <span id="targetAmount">0</span> RP</h2>
+            <h2>Sisa Target: <span id="remainingAmount">0</span> RP</h2>
+        </div>
+
+        <div id="checkboxContainer"></div>
+
+        <button id="resetBtn">Reset Tabungan</button>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
