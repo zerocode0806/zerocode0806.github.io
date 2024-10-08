@@ -3,34 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Aplikasi Menabung</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Aplikasi Menabung</h1>
-        
+
         <div class="input-group">
             <label for="target">Target Tabungan:</label>
             <input type="number" id="target" placeholder="Masukkan target tabungan..." />
         </div>
-        
+
         <div class="input-group">
-            <label for="savingOption">Pilih Opsi Menabung:</label>
-            <select id="savingOption">
-                <option value="days">Jumlah Hari Menabung</option>
-                <option value="amount">Jumlah Tabungan per Hari</option>
-            </select>
-        </div>
-
-        <div class="input-group" id="daysInputGroup">
-            <label for="days">Jumlah Hari Menabung:</label>
-            <input type="number" id="days" placeholder="Masukkan jumlah hari..." />
-        </div>
-
-        <div class="input-group" id="amountInputGroup" style="display: none;">
-            <label for="amount">Jumlah Tabungan per Hari:</label>
-            <input type="number" id="amount" placeholder="Masukkan jumlah..." />
+            <label for="amountPerDay">Jumlah Tabungan per Hari:</label>
+            <input type="number" id="amountPerDay" placeholder="Masukkan jumlah per hari..." />
         </div>
 
         <div class="button-group">
@@ -39,8 +26,8 @@
         </div>
 
         <div class="total">
-            <h2>Target Tabungan: <span id="targetAmount">0</span> </h2>
-            <h2>Sisa Target: <span id="remainingAmount">0</span> </h2>
+            <h2>Target Tabungan: <span id="targetAmount">0</span></h2>
+            <h2>Sisa Target: <span id="remainingAmount">0</span></h2>
         </div>
 
         <div id="checkboxContainer"></div>
