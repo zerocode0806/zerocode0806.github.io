@@ -1,111 +1,74 @@
 // Mendapatkan elemen dari DOM
-const amountInput = document.getElementById('amount');
 const targetInput = document.getElementById('target');
+const daysInput = document.getElementById('days');
+const amountInput = document.getElementById('amount');
 const addButton = document.getElementById('addBtn');
-const totalAmountDisplay = document.getElementById('totalAmount');
 const targetAmountDisplay = document.getElementById('targetAmount');
 const remainingAmountDisplay = document.getElementById('remainingAmount');
 const checkboxContainer = document.getElementById('checkboxContainer');
 const resetButton = document.getElementById('resetBtn');
+const savingOptionDropdown = document.getElementById('savingOption');
 
-let totalAmount = parseInt(localStorage.getItem('totalAmount')) || 0;
-let targetAmount = parseInt(localStorage.getItem('targetAmount')) || 0;
-let remainingAmount = parseInt(localStorage.getItem('remainingAmount')) || targetAmount;
+let targetAmount = 0;
+let remainingAmount = 0;
+let days = 0;
+let amountPerDay = 0;
 
-// Update tampilan awal
-totalAmountDisplay.textContent = formatCurrency(totalAmount);
-targetAmountDisplay.textContent = formatCurrency(targetAmount);
-remainingAmountDisplay.textContent = formatCurrency(remainingAmount);
+// Menampilkan input sesuai pilihan dropdown
+savingOptionDropdown.addEventListener('change', () => {
+    const selectedOption = savingOptionDropdown.value;
+    const daysInputGroup = document.getElementById('daysInputGroup');
+    const amountInputGroup = document.getElementById('amountInputGroup');
 
-// Memuat status checkbox dari localStorage
-function loadCheckboxes() {
-    const checkboxes = JSON.parse(localStorage.getItem('checkboxes')) || [];
-    checkboxes.forEach((checkbox) => {
-        const checkboxDiv = document.createElement('div');
-        checkboxDiv.classList.add('checkbox-group');
-
-        const input = document.createElement('input');
-        input.type = 'checkbox';
-        input.id = checkbox.id;
-        input.checked = checkbox.checked; // Set status checkbox
-        input.value = checkbox.value;
-
-        const label = document.createElement('label');
-        label.htmlFor = checkbox.id;
-        label.innerText = `Hari ${checkbox.day} - Menabung Rp${input.value}`;
-
-        // Tambahkan event listener untuk checkbox
-        input.addEventListener('change', () => {
-            if (input.checked) {
-                remainingAmount -= parseInt(input.value.replace(/\./g, '').replace('Rp ', '').trim());
-            } else {
-                remainingAmount += parseInt(input.value.replace(/\./g, '').replace('Rp ', '').trim());
-            }
-            localStorage.setItem('remainingAmount', remainingAmount);
-            remainingAmountDisplay.textContent = formatCurrency(remainingAmount);
-
-            // Simpan status checkbox ke localStorage
-            checkbox.checked = input.checked;
-            saveCheckboxes();
-        });
-
-        checkboxDiv.appendChild(input);
-        checkboxDiv.appendChild(label);
-        checkboxContainer.appendChild(checkboxDiv);
-    });
-}
-
-// Fungsi untuk menyimpan status checkbox ke localStorage
-function saveCheckboxes() {
-    const checkboxes = [];
-    checkboxContainer.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-        checkboxes.push({
-            id: checkbox.id,
-            day: checkbox.id.replace('day', ''), // Ambil nomor hari dari ID
-            value: checkbox.value,
-            checked: checkbox.checked
-        });
-    });
-    localStorage.setItem('checkboxes', JSON.stringify(checkboxes));
-}
+    if (selectedOption === 'days') {
+        daysInputGroup.style.display = 'block';
+        amountInputGroup.style.display = 'none';
+        amountInput.value = ''; // Reset input amount jika beralih ke opsi hari
+    } else {
+        daysInputGroup.style.display = 'none';
+        amountInputGroup.style.display = 'block';
+        daysInput.value = ''; // Reset input days jika beralih ke opsi amount
+    }
+});
 
 // Fungsi untuk menambahkan jumlah tabungan dan membuat checkbox
 addButton.addEventListener('click', () => {
-    const amount = parseInt(amountInput.value.replace(/\./g, '').replace('Rp ', '').trim()); // Parsing nilai input
-    const target = parseInt(targetInput.value.replace(/\./g, '').replace('Rp ', '').trim()); // Parsing nilai target
-    
-    // Cek jika input valid
-    if (!isNaN(amount) && amount > 0) {
-        totalAmount += amount;
-        localStorage.setItem('totalAmount', totalAmount); // Simpan total ke localStorage
-        totalAmountDisplay.textContent = formatCurrency(totalAmount);
+    targetAmount = parseInt(targetInput.value); // Parsing nilai target
+    const savingOption = savingOptionDropdown.value;
 
-        // Hanya set target jika belum di-set
-        if (targetAmount === 0 && !isNaN(target) && target > 0) {
-            targetAmount = target;
-            localStorage.setItem('targetAmount', targetAmount); // Simpan target ke localStorage
-            targetAmountDisplay.textContent = formatCurrency(targetAmount);
+    if (savingOption === 'days') {
+        days = parseInt(daysInput.value); // Parsing nilai hari
+        if (!isNaN(targetAmount) && targetAmount > 0 && !isNaN(days) && days > 0) {
             remainingAmount = targetAmount; // Set remaining amount ke target saat pertama kali
-            remainingAmountDisplay.textContent = formatCurrency(remainingAmount);
+            amountPerDay = Math.ceil(targetAmount / days / 500) * 500; // Hitung jumlah tabungan per hari
+            amountInput.value = amountPerDay; // Set input amount
+            amountInput.disabled = true; // Disable input setelah ditetapkan
 
-            // Menghitung jumlah hari dan membuat checkbox
-            const days = Math.ceil(targetAmount / amount);
-            createCheckboxes(days);
+            // Update tampilan target dan sisa target
+            targetAmountDisplay.textContent = formatCurrency(targetAmount);
+            remainingAmountDisplay.textContent = formatCurrency(remainingAmount);
+            createCheckboxes(days, amountPerDay);
         } else {
-            // Update sisa target
-            remainingAmount = targetAmount - totalAmount;
-            localStorage.setItem('remainingAmount', remainingAmount); // Simpan sisa target ke localStorage
-            remainingAmountDisplay.textContent = formatCurrency(remainingAmount);
+            alert('Masukkan target dan jumlah hari yang valid!');
         }
-
-        amountInput.value = ''; // Reset input
     } else {
-        alert('Masukkan jumlah yang valid!');
+        amountPerDay = parseInt(amountInput.value); // Parsing jumlah tabungan per hari
+        if (!isNaN(targetAmount) && targetAmount > 0 && !isNaN(amountPerDay) && amountPerDay > 0) {
+            days = Math.ceil(targetAmount / amountPerDay); // Hitung jumlah hari
+            remainingAmount = targetAmount; // Set remaining amount ke target saat pertama kali
+
+            // Update tampilan target dan sisa target
+            targetAmountDisplay.textContent = formatCurrency(targetAmount);
+            remainingAmountDisplay.textContent = formatCurrency(remainingAmount);
+            createCheckboxes(days, amountPerDay);
+        } else {
+            alert('Masukkan target dan jumlah tabungan per hari yang valid!');
+        }
     }
 });
 
 // Fungsi untuk membuat checkbox berdasarkan jumlah hari
-function createCheckboxes(days) {
+function createCheckboxes(days, amountPerDay) {
     checkboxContainer.innerHTML = ''; // Reset container
 
     for (let i = 1; i <= days; i++) {
@@ -115,38 +78,38 @@ function createCheckboxes(days) {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.id = `day${i}`;
-        checkbox.value = amountInput.value; // Ambil nilai dari input amount
+        checkbox.value = amountPerDay; // Ambil nilai dari jumlah tabungan per hari
         
         const label = document.createElement('label');
         label.htmlFor = `day${i}`;
-        label.innerText = `Hari ${i} - Menabung Rp${amountInput.value}`;
+        label.innerText = `Hari ${i} - Menabung Rp${amountPerDay}`;
 
         // Tambahkan event listener untuk checkbox
         checkbox.addEventListener('change', () => {
             if (checkbox.checked) {
-                remainingAmount -= parseInt(checkbox.value.replace(/\./g, '').replace('Rp ', '').trim()); // Mengurangi sisa target
+                remainingAmount -= parseInt(checkbox.value); // Mengurangi sisa target
             } else {
-                remainingAmount += parseInt(checkbox.value.replace(/\./g, '').replace('Rp ', '').trim()); // Menambah sisa target
+                remainingAmount += parseInt(checkbox.value); // Menambah sisa target
             }
-            localStorage.setItem('remainingAmount', remainingAmount); // Simpan sisa target ke localStorage
-            remainingAmountDisplay.textContent = formatCurrency(remainingAmount); // Update tampilan sisa target
 
-            // Simpan status checkbox ke localStorage
-            checkbox.checked = checkbox.checked;
-            saveCheckboxes();
+            // Update tampilan sisa target
+            updateRemainingAmountDisplay();
         });
 
         checkboxDiv.appendChild(checkbox);
         checkboxDiv.appendChild(label);
         checkboxContainer.appendChild(checkboxDiv);
     }
-
-    // Simpan status checkbox ke localStorage
-    saveCheckboxes();
 }
 
-// Memuat status checkbox saat aplikasi dimuat
-loadCheckboxes();
+// Fungsi untuk memperbarui tampilan sisa target
+function updateRemainingAmountDisplay() {
+    if (remainingAmount >= 0) {
+        remainingAmountDisplay.textContent = "Sisa Target: " + formatCurrency(remainingAmount); // Menampilkan nilai sisa
+    } else {
+        remainingAmountDisplay.textContent = "Lebih: " + formatCurrency(Math.abs(remainingAmount)); // Menampilkan "lebih: Rp"
+    }
+}
 
 // Fungsi untuk format currency dengan titik sebagai pemisah ribuan
 function formatCurrency(value) {
@@ -155,25 +118,15 @@ function formatCurrency(value) {
 
 // Fungsi untuk mereset tabungan
 resetButton.addEventListener('click', () => {
-    totalAmount = 0;
     targetAmount = 0;
     remainingAmount = 0;
-    
-    // Reset localStorage
-    localStorage.removeItem('totalAmount');
-    localStorage.removeItem('targetAmount');
-    localStorage.removeItem('remainingAmount');
-    localStorage.removeItem('checkboxes');
-    
-    totalAmountDisplay.textContent = formatCurrency(totalAmount);
+    days = 0;
+    amountPerDay = 0;
     targetAmountDisplay.textContent = formatCurrency(targetAmount);
     remainingAmountDisplay.textContent = formatCurrency(remainingAmount);
     amountInput.value = ''; // Reset input
     targetInput.value = ''; // Reset target input
+    daysInput.value = ''; // Reset days input
     checkboxContainer.innerHTML = ''; // Reset checkbox
+    amountInput.disabled = false; // Enable input lagi
 });
-
-// Set nilai awal pada tampilan
-totalAmountDisplay.textContent = formatCurrency(totalAmount);
-targetAmountDisplay.textContent = formatCurrency(targetAmount);
-remainingAmountDisplay.textContent = formatCurrency(remainingAmount);

@@ -16,20 +16,34 @@
         </div>
         
         <div class="input-group">
+            <label for="savingOption">Pilih Opsi Menabung:</label>
+            <select id="savingOption">
+                <option value="days">Jumlah Hari Menabung</option>
+                <option value="amount">Jumlah Tabungan per Hari</option>
+            </select>
+        </div>
+
+        <div class="input-group" id="daysInputGroup">
+            <label for="days">Jumlah Hari Menabung:</label>
+            <input type="number" id="days" placeholder="Masukkan jumlah hari..." />
+        </div>
+
+        <div class="input-group" id="amountInputGroup" style="display: none;">
             <label for="amount">Jumlah Tabungan per Hari:</label>
             <input type="number" id="amount" placeholder="Masukkan jumlah..." />
+        </div>
+
+        <div class="button-group">
             <button id="addBtn">Tambahkan</button>
+            <button id="resetBtn">Reset</button>
         </div>
 
         <div class="total">
-            <h2>Total Tabungan: <span id="totalAmount">0</span> RP</h2>
-            <h2>Target Tabungan: <span id="targetAmount">0</span> RP</h2>
-            <h2>Sisa Target: <span id="remainingAmount">0</span> RP</h2>
+            <h2>Target Tabungan: <span id="targetAmount">0</span> </h2>
+            <h2>Sisa Target: <span id="remainingAmount">0</span> </h2>
         </div>
 
         <div id="checkboxContainer"></div>
-
-        <button id="resetBtn">Reset Tabungan</button>
     </div>
     
     <script src="script.js"></script>
