@@ -25,7 +25,7 @@ function saveData() {
 // Fungsi untuk memuat data dari LocalStorage
 function loadData() {
     targetAmount = parseInt(localStorage.getItem('targetAmount')) || 0;
-    remainingAmount = parseInt(localStorage.getItem('remainingAmount')) || 0;
+    remainingAmount = parseInt(localStorage.getItem('remainingAmount')) || targetAmount; // Load dari local storage atau gunakan targetAmount
     amountPerDay = parseInt(localStorage.getItem('amountPerDay')) || 0;
     days = parseInt(localStorage.getItem('days')) || 0;
 
@@ -80,12 +80,7 @@ function createCheckboxes() {
         label.innerText = `Hari ${i} - Menabung Rp${formatCurrency(amountPerDay)}`;
 
         checkbox.addEventListener('change', () => {
-            if (checkbox.checked) {
-                remainingAmount -= parseInt(checkbox.value);
-            } else {
-                remainingAmount += parseInt(checkbox.value);
-            }
-            updateRemainingAmountDisplay();
+            handleCheckboxChange(checkbox);
             saveData(); // Simpan data setiap kali checkbox diubah
         });
 
@@ -93,6 +88,20 @@ function createCheckboxes() {
         checkboxDiv.appendChild(label);
         checkboxContainer.appendChild(checkboxDiv);
     }
+}
+
+// Fungsi untuk menangani perubahan checkbox
+function handleCheckboxChange(checkbox) {
+    const checkedStatus = JSON.parse(localStorage.getItem('checkboxes')) || [];
+    const dayIndex = checkbox.id.replace('day', '') - 1;
+    
+    // Cek jika checkbox sudah dicentang sebelumnya
+    if (checkbox.checked && !checkedStatus[dayIndex]?.checked) {
+        remainingAmount -= parseInt(checkbox.value);
+    } else if (!checkbox.checked && checkedStatus[dayIndex]?.checked) {
+        remainingAmount += parseInt(checkbox.value);
+    }
+    updateRemainingAmountDisplay();
 }
 
 // Fungsi untuk memperbarui tampilan sisa target
@@ -109,6 +118,26 @@ function formatCurrency(value) {
     return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
+// Fungsi untuk mendapatkan status checkbox
+function getCheckboxStates() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    return Array.from(checkboxes).map(checkbox => ({
+        checked: checkbox.checked,
+        value: checkbox.value
+    }));
+}
+
+// Fungsi untuk menerapkan status checkbox
+function applyCheckboxStates(savedCheckboxes) {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox, index) => {
+        const savedState = savedCheckboxes[index];
+        if (savedState && savedState.checked) {
+            checkbox.checked = true;
+        }
+    });
+}
+
 // Fungsi untuk mereset data
 resetButton.addEventListener('click', () => {
     targetAmount = 0;
@@ -123,24 +152,6 @@ resetButton.addEventListener('click', () => {
     amountPerDayInput.value = '';
     checkboxContainer.innerHTML = '';
 });
-
-// Fungsi untuk mendapatkan status checkbox
-function getCheckboxStates() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    return Array.from(checkboxes).map(checkbox => checkbox.checked);
-}
-
-// Fungsi untuk menerapkan status checkbox
-function applyCheckboxStates(states) {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((checkbox, index) => {
-        checkbox.checked = states[index];
-        if (checkbox.checked) {
-            remainingAmount -= parseInt(checkbox.value);
-        }
-    });
-    updateRemainingAmountDisplay();
-}
 
 // Muat data dari local storage saat halaman di-refresh
 window.onload = loadData;
