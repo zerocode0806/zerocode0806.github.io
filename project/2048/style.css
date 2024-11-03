@@ -8,12 +8,13 @@ body {
     margin: 0;
     background-color: #faf8ef;
     color: #776e65;
-    padding: 20px;
+    overflow: hidden; /* Prevent scrolling */
 }
 
 h1 {
     margin-bottom: 20px;
     font-size: 40px;
+    text-align: center; /* Center the heading */
 }
 
 .game-container {
@@ -24,11 +25,8 @@ h1 {
     background-color: #bbada0;
     padding: 10px;
     border-radius: 10px;
-}
-
-.grid {
-    display: flex;
-    flex-wrap: wrap;
+    user-select: none; /* Prevent text selection */
+    touch-action: none; /* Prevent default swipe behavior */
 }
 
 .tile {
@@ -42,63 +40,42 @@ h1 {
     font-weight: bold;
     color: #776e65;
     border-radius: 5px;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
-.tile[data-value="2"] {
-    background-color: #eee4da;
-}
-
-.tile[data-value="4"] {
-    background-color: #ede0c8;
-}
-
-.tile[data-value="8"] {
-    background-color: #f2b179;
-    color: #f9f6f2;
-}
-
-.tile[data-value="16"] {
-    background-color: #f59563;
-    color: #f9f6f2;
-}
-
-.tile[data-value="32"] {
-    background-color: #f67c5f;
-    color: #f9f6f2;
-}
-
-.tile[data-value="64"] {
-    background-color: #f65e3b;
-    color: #f9f6f2;
-}
-
-.tile[data-value="128"] {
-    background-color: #edcf72;
-    color: #f9f6f2;
-}
-
-.tile[data-value="256"] {
-    background-color: #edcc61;
-    color: #f9f6f2;
-}
-
-.tile[data-value="512"] {
-    background-color: #edc850;
-    color: #f9f6f2;
-}
-
-.tile[data-value="1024"] {
-    background-color: #edc53f;
-    color: #f9f6f2;
-}
-
-.tile[data-value="2048"] {
-    background-color: #edc22e;
-    color: #f9f6f2;
-}
+.tile[data-value="2"] { background-color: #eee4da; }
+.tile[data-value="4"] { background-color: #ede0c8; }
+.tile[data-value="8"] { background-color: #f2b179; color: #f9f6f2; }
+.tile[data-value="16"] { background-color: #f59563; color: #f9f6f2; }
+.tile[data-value="32"] { background-color: #f67c5f; color: #f9f6f2; }
+.tile[data-value="64"] { background-color: #f65e3b; color: #f9f6f2; }
+.tile[data-value="128"] { background-color: #edcf72; color: #f9f6f2; }
+.tile[data-value="256"] { background-color: #edcc61; color: #f9f6f2; }
+.tile[data-value="512"] { background-color: #edc850; color: #f9f6f2; }
+.tile[data-value="1024"] { background-color: #edc53f; color: #f9f6f2; }
+.tile[data-value="2048"] { background-color: #edc22e; color: #f9f6f2; }
 
 #status {
     margin-top: 20px;
     font-size: 20px;
     font-weight: bold;
+    text-align: center; /* Center the status text */
+}
+
+/* Animation for tile movement */
+.tile {
+    position: relative; /* Allow absolute positioning for animations */
+}
+
+@keyframes move {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
+.tile.moving {
+    animation: move 0.1s ease forwards;
 }

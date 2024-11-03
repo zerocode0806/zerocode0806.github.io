@@ -106,7 +106,31 @@ function handleKeyPress(event) {
     drawGrid();
 }
 
+let touchStartX = 0;
+let touchStartY = 0;
+
+function handleSwipeStart(event) {
+    touchStartX = event.changedTouches[0].clientX;
+    touchStartY = event.changedTouches[0].clientY;
+}
+
+function handleSwipeEnd(event) {
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX > 0) moveRight(); else moveLeft();
+    } else {
+        if (deltaY > 0) moveDown(); else moveUp();
+    }
+    drawGrid();
+}
+
 document.addEventListener("keydown", handleKeyPress);
+gameContainer.addEventListener("touchstart", handleSwipeStart);
+gameContainer.addEventListener("touchend", handleSwipeEnd);
 
 function initGame() {
     generateNewTile();
