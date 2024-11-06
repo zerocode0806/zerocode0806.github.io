@@ -1,0 +1,91 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f8fb;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2em;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.game-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns */
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px; /* Adjust the maximum width if needed */
+    box-sizing: border-box;
+}
+
+.card {
+    width: 100%;
+    aspect-ratio: 1; /* Maintain a square aspect ratio */
+    background-color: #4CAF50;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+    transform: perspective(600px) rotateY(0deg);
+    transition: transform 0.5s, background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    background-color: #45A049;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.card.flipped {
+    background-color: #fff;
+    color: #444;
+    transform: perspective(600px) rotateY(180deg);
+}
+
+.card.matched {
+    background-color: #d4d4d4;
+    color: #999;
+    cursor: default;
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #1976D2;
+    transform: translateY(-3px);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+#resultMessage {
+    font-size: 1em;
+    color: #555;
+    margin-top: 10px;
+    text-align: center;
+}
