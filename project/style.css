@@ -12,10 +12,10 @@
 }
 
 :root {
-    --bg-color: #1e1e1e;
-    --second-bg-color: #595959;
-    --text-color:#a6a6a6;
-    --main-color:#d0d0d0;
+    --bg-color: #121212; /* Background utama yang sangat gelap, hampir hitam */
+    --second-bg-color: #1e1e1e; /* Background sekunder yang sedikit lebih terang dari bg utama */
+    --text-color: #e0e0e0; /* Teks dengan warna abu-abu terang untuk kontras yang lebih lembut */
+    --main-color: #bb86fc; /* Warna utama dengan ungu cerah, memberikan kontras elegan */
 }
 
 html {
@@ -231,7 +231,6 @@ span{
     margin: 1rem 0 3rem;
 }
 
-
 .portfolio {
     background: var(--second-bg-color);
 }
@@ -250,10 +249,6 @@ span{
 .portfolio-container .portfolio-box {
     position: relative;
     border-radius: 2rem;
-    -webkit-border-radius: 2rem;
-    -moz-border-radius: 2rem;
-    -ms-border-radius: 2rem;
-    -o-border-radius: 2rem;
     box-shadow: 0 0 1rem  var(--bg-color);
     overflow: hidden;
     display: flex;
@@ -263,18 +258,10 @@ span{
 .portfolio-box img {
     width: 100%;
     transition: .5s ease;
-    -webkit-transition: .5s ease;
-    -moz-transition: .5s ease;
-    -ms-transition: .5s ease;
-    -o-transition: .5s ease;
 }
 
 .portfolio-box:hover img {
     transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    -moz-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    -o-transform: scale(1.1);
 }
 
 .portfolio-box .portfolio-layer {
@@ -291,23 +278,11 @@ span{
     text-align: center;
     padding: 0 4rem;
     transform: translateY(100%);
-    -webkit-transform: translateY(100%);
-    -moz-transform: translateY(100%);
-    -ms-transform: translateY(100%);
-    -o-transform: translateY(100%);
     transition: .5s ease;
-    -webkit-transition: .5s ease;
-    -moz-transition: .5s ease;
-    -ms-transition: .5s ease;
-    -o-transition: .5s ease;
 }
 
 .portfolio-box:hover .portfolio-layer {
     transform: translateY(0);
-    -webkit-transform: translateY(0);
-    -moz-transform: translateY(0);
-    -ms-transform: translateY(0);
-    -o-transform: translateY(0);
 }
 
 .portfolio-layer h4 {
@@ -327,10 +302,6 @@ span{
     height: 5rem;
     background: var(--text-color);
     border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
 }
 
 .portfolio-layer a i {
@@ -363,10 +334,6 @@ span{
     color: var(--text-color);
     background: var(--second-bg-color);
     border-radius: .8rem;
-    -webkit-border-radius: .8rem;
-    -moz-border-radius: .8rem;
-    -ms-border-radius: .8rem;
-    -o-border-radius: .8rem;
     margin: .7rem 0;
 }
 
@@ -394,7 +361,6 @@ span{
     height: 100px;
     min-height: 80px;
 }
-
 
 .footer-text p {
     font-size: 1.6rem;
@@ -514,70 +480,6 @@ span{
     }
 }
 
-
-@media (max-width: 768px) {
-    #menu-icon {
-        display: block;
-    }
-
-    .navbar {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        padding: 1rem 3%;
-        background: var(--bg-color);
-        border-top: .1rem solid rgba(0, 0, 0, .2);
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2);
-        display: none;
-    }
-
-    .navbar.active {
-        display: block;
-    }
-
-    .navbar a {
-        display: block;
-        font-size: 2rem;
-        margin: 3rem 0;
-    }
-
-    .home {
-        flex-direction: column;
-    }
-
-    .home-content h3 {
-        font-size: 2.6rem;
-    }
-
-    .home-content h1 {
-        font-size: 5rem;
-    }
-
-    .home-img img {
-        width: 70vw;
-        margin-top: 4rem;
-    }
-
-    .about {
-        flex-direction: column-reverse;
-    }
-
-    .about img {
-        width: 70vw;
-        margin-top: 4rem;
-    }
-
-    .services h2 {
-        margin-top: 3rem;
-    }
-
-    .portfolio-continer {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-
 @media (max-width: 617px) {
     .portfolio-container {
         grid-template-columns: 1fr;
@@ -609,6 +511,6 @@ span{
 
     .footer p {
         text-align: center;
-        margin-top: 2rem;
+        margin-top: 2rem;
     }
 }

@@ -1,62 +1,151 @@
+:root {
+    --bg-color: #121212; /* Dark background color */
+    --second-bg-color: #1e1e1e; /* Slightly lighter background for sections */
+    --text-color: #e0e0e0; /* Light text color for better contrast */
+    --main-color: #bb86fc; /* Bright purple for highlights */
+    --accent-color: #03dac5; /* A teal accent color for contrast */
+    --hover-shadow: rgba(0, 0, 0, 0.7); /* Subtle shadow effect for hover */
+    --border-radius: 10px; /* Rounded corners for a smoother appearance */
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1c1c1c; /* Dark background color */
-    color: #f9f9f9; /* Light text color for better contrast */
+    font-family: 'Arial', sans-serif;
+    background-color: var(--bg-color); /* Dark background color */
+    color: var(--text-color); /* Light text color for better contrast */
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .container {
-    max-width: 800px;
-    margin: auto;
-    background: #2a2a2a; /* Slightly lighter background for the container */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow for more depth */
+    width: 100%;
+    max-width: 1000px;
+    background: var(--second-bg-color);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Enhanced shadow for depth */
 }
 
-h1, h2 {
+h1 {
     text-align: center;
-    color: #ffffff; /* White text for headers */
+    font-size: 3rem;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: var(--main-color); /* Highlight title with main color */
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
 }
 
 #gameGallery {
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
 }
 
 .game-item {
-    margin: 10px;
-    border: 1px solid #444; /* Darker border color */
-    border-radius: 4px;
+    width: 100%;
+    max-width: 300px;
+    border: 2px solid #444;
+    border-radius: var(--border-radius);
     overflow: hidden;
-    transition: transform 0.2s;
-    background: #333; /* Dark background for game items */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    background: var(--second-bg-color);
+    box-shadow: 0 0 15px var(--hover-shadow);
 }
 
 .game-item img {
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: 200px;
     object-fit: cover;
-    border-radius: 4px 4px 0 0; /* Rounded corners for the top of game items */
+    border-bottom: 2px solid var(--main-color); /* Subtle border under image */
 }
 
 .game-item:hover {
-    transform: scale(1.05);
-    border-color: #1a73e8; /* Highlight border color on hover */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px var(--hover-shadow);
+    border-color: var(--main-color); /* Highlight border color */
 }
 
-a {
-    color: #f9f9f9; /* Change link color to match the text color */
-    text-decoration: none; /* Remove underline from links */
+.game-item .game-info {
+    padding: 20px;
+    text-align: center;
 }
 
-a:hover {
-    color: #1a73e8; /* Change color on hover */
-    text-decoration: underline; /* Optionally, add underline on hover for better UX */
+.game-item h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.game-item p {
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.game-item a {
+    font-size: 1.6rem;
+    color: var(--main-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 2px solid var(--main-color);
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.game-item a:hover {
+    background-color: var(--main-color);
+    color: var(--bg-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .game-item img {
+        height: 150px;
+    }
+
+    .game-item h3 {
+        font-size: 1.6rem;
+    }
+
+    .game-item p {
+        font-size: 1.2rem;
+    }
+
+    .game-item a {
+        font-size: 1.4rem;
+        padding: 8px 16px;
+    }
 }
