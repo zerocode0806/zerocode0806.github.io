@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Location Logger</title>
+    <style>
+      body {
+        background-color: #111;
+        color: #0f0;
+        font-family: monospace;
+        text-align: center;
+        padding-top: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📍 Location Logger</h1>
+    <p id="status">Requesting your location...</p>
+    <p id="coords"></p>
+
+    <script>
+      function showLocation(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const accuracy = position.coords.accuracy;
+
+        document.getElementById("status").textContent = "✅ Location received!";
+        document.getElementById(
+          "coords"
+        ).textContent = `Latitude: ${latitude}\nLongitude: ${longitude}\nAccuracy: ${accuracy} meters`;
+
+        // Optionally send to your server
+        fetch("/log_location", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            lat: latitude,
+            lon: longitude,
+            acc: accuracy,
+          }),
+        });
+      }
+
+      function showError(error) {
+        document.getElementById(
+          "status"
+        ).textContent = `❌ Error: ${error.message}`;
+      }
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showLocation, showError);
+      } else {
+        document.getElementById("status").textContent =
+          "Geolocation not supported.";
+      }
+    </script>
+  </body>
+</html>
