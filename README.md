@@ -1,62 +1,46 @@
-# Ubed Dahlan
+# Personal Website
 
-Junior Software developer with interests in backend systems, automation, and practical software solutions.  
-I enjoy building tools that solve real problems, experimenting with new technologies, and continuously improving my engineering skills through hands-on projects.
+This repository contains the source code for my personal website hosted using GitHub Pages.
 
----
+The website serves as a central place to present my projects, technical interests, and development work. It is designed to act as a simple developer portfolio and documentation space for experiments and software projects.
 
-## Focus Areas
+## Website
 
-- Backend development
-- Automation and scripting
-- System design and software architecture
-- Web-based applications
-- Experimental AI integrations
-- Game development prototypes
+The site is available at:
 
----
+https://zerocode0806.github.io
 
-## Tech Stack
+## Purpose
 
-**Languages**
+The goal of this website is to provide:
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
-![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat&logo=php&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![C#](https://img.shields.io/badge/C%23-239120?style=flat&logo=c-sharp&logoColor=white)
-![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat&logo=mysql&logoColor=white)
+* a portfolio of projects and experiments
+* documentation for selected development work
+* a place to share technical ideas and learning progress
+* a simple personal presence on the web
 
-**Tools & Platforms**
+## Technologies
 
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
-![Unity](https://img.shields.io/badge/Unity-000000?style=flat&logo=unity&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
+The website is built using simple and lightweight technologies.
 
----
+* HTML
+* CSS
+* JavaScript
 
-## GitHub Statistics
+These technologies allow the site to remain fast, portable, and easy to maintain.
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=zerocode0806&show_icons=true&hide_border=true)
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=zerocode0806&layout=compact&hide_border=true)
+## Development
 
----
+To modify the website:
 
-## Current Work
+1. Clone the repository
+2. Edit the HTML, CSS, or JavaScript files
+3. Commit and push changes
 
-Currently focused on building projects related to:
+GitHub Pages will automatically redeploy the website after the commit.
 
-- automation systems
-- backend services
-- developer productivity tools
-- AI-assisted applications
+## Author
 
-Most repositories here document experiments, learning processes, and practical implementations.
-
----
-
-## Profile
-
-GitHub  
+Ubed Dahlan
 https://github.com/zerocode0806
