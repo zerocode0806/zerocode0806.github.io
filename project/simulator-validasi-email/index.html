@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulator FSA - Validasi Email</title>
+    <style>
+        :root {
+            --bg-main: #fafaf8;
+            --border-color: #e8e4dc;
+            --text-main: #222;
+            --text-muted: #777;
+            --primary: #378ADD;
+            --primary-bg: #E6F1FB;
+            --primary-dark: #0C447C;
+            --success: #639922;
+            --success-bg: #EAF3DE;
+            --success-dark: #27500A;
+            --danger: #E24B4A;
+            --danger-bg: #FCEBEB;
+            --danger-dark: #791F1F;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: var(--text-main);
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* Input Controls */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* SVG Container */
+        .svg-wrapper {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 16px;
+            padding: 10px;
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Rules Grid */
+        .rules-title {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: .05em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .card {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 10px;
+            background: var(--bg-main);
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .card.active {
+            border-color: var(--primary);
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+
+        .card-title {
+            font-family: monospace;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #555;
+        }
+        .card.active .card-title {
+            color: #185FA5;
+        }
+
+        .badge {
+            font-size: 9px;
+            background: var(--success-bg);
+            color: var(--success-dark);
+            border-radius: 3px;
+            padding: 1px 5px;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        /* Tape Input */
+        .tape-container {
+            background: #f7f6f2;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .tape-cells {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .cell {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: monospace;
+            border: 1px solid #ddd;
+            background: #f4f3ef;
+            color: var(--text-muted);
+            font-weight: bold;
+        }
+
+        .cell.reading { border-color: var(--primary); background: var(--primary-bg); color: var(--primary-dark); }
+        .cell.ok { border-color: var(--success); background: var(--success-bg); color: var(--success-dark); }
+        .cell.fail { border-color: var(--danger); background: var(--danger-bg); color: var(--danger-dark); }
+
+        /* Log Panel */
+        .log-container {
+            background: #f7f6f2;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            min-height: 100px;
+            max-height: 150px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .log-entry.ok { color: #1D9E75; }
+        .log-entry.fail { color: #D85A30; }
+        .log-entry.dim { color: #999; }
+
+        /* Verdict Box */
+        .verdict {
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+        }
+        .verdict.accept {
+            display: block;
+            background: #E1F5EE;
+            border: 1px solid #5DCAA5;
+            color: #085041;
+        }
+        .verdict.reject {
+            display: block;
+            background: #FAECE7;
+            border: 1px solid #F0997B;
+            color: #712B13;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Simulasi FSA — Validasi Format Email</h1>
+    <div class="subtitle" id="meta-text">Masukkan email di bawah untuk memulai simulasi transisi state.</div>
+
+    <div class="input-group">
+        <input type="text" id="email-input" placeholder="Contoh: ubed_dev@domain.com" value="ubed_dev@domain.com">
+        <button id="btn-simulasikan" onclick="mulaiSimulasi()">Simulasikan</button>
+    </div>
+
+    <div class="svg-wrapper" id="svg-container"></div>
+
+    <div class="rules-title">Aturan Setiap State (Aktif = Biru)</div>
+    <div class="rules-grid" id="rules-container"></div>
+
+    <div class="tape-container">
+        <div class="rules-title">Pita Input 
+            <span style="text-transform: none; font-size:11px; margin-left:10px; font-weight: normal;">
+                <span style="color:var(--primary)">■</span> Sedang dibaca &nbsp;
+                <span style="color:var(--success)">■</span> Sukses &nbsp;
+                <span style="color:var(--danger)">■</span> Gagal
+            </span>
+        </div>
+        <div class="tape-cells" id="tape-container"></div>
+    </div>
+
+    <div class="log-container" id="log-container"></div>
+
+    <div class="verdict" id="verdict-container"></div>
+</div>
+
+<script>
+    // Data State FSA
+    const STATES = [
+        { id: 0, label: 'q0', sub: 'start', x: 55, y: 100, rule: 'State awal. Belum membaca karakter apapun. Hanya bisa maju jika karakter pertama valid.' },
+        { id: 1, label: 'q1', sub: 'username', x: 185, y: 100, rule: 'Membaca bagian username. Karakter valid: huruf, angka, dan simbol . _ % + -. Bisa banyak karakter.' },
+        { id: 2, label: 'q2', sub: '@ ok', x: 330, y: 100, rule: 'Simbol @ berhasil dibaca. Selanjutnya WAJIB membaca karakter awal nama domain.' },
+        { id: 3, label: 'q3', sub: 'domain', x: 460, y: 100, rule: 'Membaca nama domain. Karakter valid: huruf, angka, tanda hubung (-). Bisa banyak karakter.' },
+        { id: 4, label: 'q4', sub: 'dot', x: 565, y: 58, rule: 'Titik (.) baru saja dibaca. Selanjutnya wajib huruf untuk memulai ekstensi TLD.' },
+        { id: 5, label: 'q5', sub: 'TLD ✓', x: 595, y: 150, accept: true, rule: 'ACCEPT STATE. Email VALID jika input habis di sini. Jika ada titik berikutnya, kembali ke q4.' }
+    ];
+
+    // Logika Evaluasi Karakter Matcher (Sesuai Logika RegEx sebelumnya)
+    const checkRegex = (pattern, char) => {
+        const regexes = {
+            'username': /[a-zA-Z0-9._%+\-]/,
+            'domain': /[a-zA-Z0-9\-]/,
+            'tld': /[a-zA-Z]/
+        };
+        return regexes[pattern].test(char);
+    };
+
+    // Struktur Pencarian Transisi δ(state, char)
+    const dapatkanTransisi = (state, ch) => {
+        if (state === 0 && checkRegex('username', ch)) return { t: 1, desc: 'huruf/angka/simbol username' };
+        if (state === 1 && checkRegex('username', ch)) return { t: 1, desc: 'lanjut username' };
+        if (state === 1 && ch === '@') return { t: 2, desc: 'simbol @' };
+        if (state === 2 && checkRegex('domain', ch)) return { t: 3, desc: 'huruf/angka awal domain' };
+        if (state === 3 && checkRegex('domain', ch)) return { t: 3, desc: 'lanjut domain' };
+        if (state === 3 && ch === '.') return { t: 4, desc: 'titik pemisah TLD' };
+        if (state === 4 && checkRegex('tld', ch)) return { t: 5, desc: 'huruf awal TLD' };
+        if (state === 5 && checkRegex('tld', ch)) return { t: 5, desc: 'lanjut TLD' };
+        if (state === 5 && ch === '.') return { t: 4, desc: 'titik untuk TLD berlapis' };
+        return null;
+    };
+
+    // Fungsi Render Komponen HTML & SVG Dinamis
+    function buatSFSvg(curState, verdict = null) {
+        const dapatkanGaya = (sid) => {
+            if (verdict === 'accept' && STATES[sid].accept) return { fi: '#EAF3DE', st: '#639922', tc: '#27500A', sw: '2.5' };
+            if (verdict === 'reject' && sid === curState) return { fi: '#FCEBEB', st: '#E24B4A', tc: '#791F1F', sw: '2.5' };
+            if (sid === curState) return { fi: '#E6F1FB', st: '#378ADD', tc: '#0C447C', sw: '2.5' };
+            return { fi: '#f4f3ef', st: '#d0cdc6', tc: '#777', sw: '1' };
+        };
+
+        const edges = [
+            { f: 0, t: 1, lx: 118, ly: 70, cv: 0, lbl: '[a-z0-9._%+-]' },
+            { f: 1, t: 1, lx: 185, ly: 27, cv: 'self', lbl: '[a-z0-9._%+-]' },
+            { f: 1, t: 2, lx: 255, ly: 70, cv: 0, lbl: '@' },
+            { f: 2, t: 3, lx: 393, ly: 70, cv: 0, lbl: '[a-z0-9-]' },
+            { f: 3, t: 3, lx: 460, ly: 27, cv: 'self', lbl: '[a-z0-9-]' },
+            { f: 3, t: 4, lx: 524, ly: 58, cv: -26, lbl: '.' },
+            { f: 4, t: 5, lx: 588, ly: 108, cv: 0, lbl: '[a-z]' },
+            { f: 5, t: 5, lx: 632, ly: 168, cv: 'self', lbl: '[a-z]' },
+            { f: 5, t: 4, lx: 596, ly: 88, cv: 0, lbl: '.' }
+        ];
+
+        let svgHtml = `<svg viewBox="0 0 660 198">
+            <defs>
+                <marker id="ai" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                    <polygon points="0,0 6,3 0,6" fill="#c0bcb5"/>
+                </marker>
+            </defs>
+            <line x1="14" y1="100" x2="27" y2="100" stroke="#bbb" stroke-width="1.5" marker-end="url(#ai)"/>`;
+
+        edges.forEach(e => {
+            const fs = STATES[e.f], ts = STATES[e.t];
+            if (e.cv === 'self') {
+                svgHtml += `<path d="M${fs.x-14},${fs.y-26} C${fs.x-30},${fs.y-70} ${fs.x+30},${fs.y-70} ${fs.x+14},${fs.y-26}" fill="none" stroke="#d0cdc6" stroke-width="1" marker-end="url(#ai)"/>
+                            <text x="${e.lx}" y="${e.ly}" text-anchor="middle" font-size="8" fill="#b0ada6" font-family="monospace">${e.lbl}</text>`;
+            } else {
+                let dx = ts.x - fs.x, dy = ts.y - fs.y;
+                let le = Math.sqrt(dx*dx + dy*dy);
+                let ux = dx/le, uy = dy/le;
+                let x1 = fs.x + ux*26, y1 = fs.y + uy*26;
+                let x2 = ts.x - ux*26, y2 = ts.y - uy*26;
+
+                if (e.cv !== 0) {
+                    let mx = (fs.x + ts.x)/2, my = (fs.y + ts.y)/2 + e.cv;
+                    svgHtml += `<path d="M${x1.toFixed(1)},${y1.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}" fill="none" stroke="#d0cdc6" stroke-width="1" marker-end="url(#ai)"/>`;
+                } else {
+                    svgHtml += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#d0cdc6" stroke-width="1" marker-end="url(#ai)"/>`;
+                }
+                svgHtml += `<text x="${e.lx}" y="${e.ly}" text-anchor="middle" font-size="8" fill="#b0ada6" font-family="monospace">${e.lbl}</text>`;
+            }
+        });
+
+        STATES.forEach(s => {
+            const style = dapatkanGaya(s.id);
+            const doubleCircle = s.accept ? `<circle cx="${s.x}" cy="${s.y}" r="19" fill="none" stroke="${style.st}" stroke-width="1" opacity="0.5"/>` : '';
+            svgHtml += `<circle cx="${s.x}" cy="${s.y}" r="25" fill="${style.fi}" stroke="${style.st}" stroke-width="${style.sw}"/>
+                        ${doubleCircle}
+                        <text x="${s.x}" y="${s.y-4}" text-anchor="middle" font-size="11" font-weight="600" fill="${style.tc}" font-family="monospace">${s.label}</text>
+                        <text x="${s.x}" y="${s.y+10}" text-anchor="middle" font-size="8" fill="${style.tc}" opacity="0.7">${s.sub}</text>`;
+        });
+
+        svgHtml += `</svg>`;
+        document.getElementById('svg-container').innerHTML = svgHtml;
+    }
+
+    function renderRules(curState) {
+        let gridHtml = '';
+        STATES.forEach(s => {
+            const isActive = s.id === curState ? 'active' : '';
+            const badge = s.accept ? `<span class="badge">ACCEPT</span>` : '';
+            gridHtml += `<div class="card ${isActive}">
+                <div class="card-title">${s.label} — ${s.sub}${badge}</div>
+                <div>${s.rule.replace('\n', '<br>')}</div>
+            </div>`;
+        });
+        document.getElementById('rules-container').innerHTML = gridHtml;
+    }
+
+    function renderTape(email, cellStates) {
+        let tapeHtml = '';
+        for (let i = 0; i < email.length; i++) {
+            const stateClass = cellStates[i] || 'idle';
+            tapeHtml += `<span class="cell ${stateClass}">${email[i]}</span>`;
+        }
+        document.getElementById('tape-container').innerHTML = tapeHtml;
+    }
+
+    function pushLog(message, type = 'dim') {
+        const logBox = document.getElementById('log-container');
+        logBox.innerHTML += `<div class="log-entry ${type}">> ${message}</div>`;
+        logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    // Engine Inti Jalannya Animasi Otomatis (Async Loop)
+    let isRunning = false;
+    async function mulaiSimulasi() {
+        if (isRunning) return;
+        isRunning = true;
+        
+        const emailInput = document.getElementById('email-input');
+        const btn = document.getElementById('btn-simulasikan');
+        const email = emailInput.value.trim();
+        
+        if (!email) {
+            alert("Input email tidak boleh kosong!");
+            isRunning = false;
+            return;
+        }
+
+        // Lock UI saat proses berjalan
+        emailInput.disabled = true;
+        btn.disabled = true;
+
+        // Reset komponen visual
+        document.getElementById('log-container').innerHTML = '';
+        const verdictContainer = document.getElementById('verdict-container');
+        verdictContainer.className = 'verdict';
+        verdictContainer.innerHTML = '';
+
+        let curState = 0;
+        let cellStates = {};
+        const delay = 400; // waktu jeda ms per transisi
+
+        pushLog("Mesin dijalankan — memulai dari q0 (start state)", 'dim');
+        buatSFSvg(curState);
+        renderRules(curState);
+        renderTape(email, cellStates);
+
+        await new Promise(r => setTimeout(r, delay));
+        let accepted = true;
+
+        for (let i = 0; i < email.length; i++) {
+            const ch = email[i];
+            cellStates[i] = 'reading';
+            document.getElementById('meta-text').innerHTML = `Membaca karakter: <b style="color:var(--primary); font-family:monospace">'${ch}'</b> | State aktif: <b>q${curState}</b>`;
+            renderTape(email, cellStates);
+            buatSFSvg(curState);
+            
+            await new Promise(r => setTimeout(r, delay * 0.4));
+
+            const transisi = dapatkanTransisi(curState, ch);
+
+            if (!transisi) {
+                pushLog(`δ(q${curState}, '${ch}') = ∅ → Tidak ada transisi cocok! Kerangka FSA menolak.`, 'fail');
+                cellStates[i] = 'fail';
+                accepted = false;
+                renderTape(email, cellStates);
+                buatSFSvg(curState, 'reject');
+                break;
+            }
+
+            const nextState = transisi.t;
+            pushLog(`δ(q${curState}, '${ch}') → q${nextState} [${transisi.desc}]`, 'ok');
+            cellStates[i] = 'ok';
+            curState = nextState;
+
+            renderTape(email, cellStates);
+            renderRules(curState);
+            buatSFSvg(curState);
+
+            await new Promise(r => setTimeout(r, delay));
+        }
+
+        // Penentuan Akhir (Verdict Evaluator)
+        if (accepted) {
+            if (curState === 5) {
+                pushLog("Semua input berhasil dikonsumsi. Berhenti di q5 (accept state) -> ACCEPT", 'ok');
+                buatSFSvg(curState, 'accept');
+                verdictContainer.className = "verdict accept";
+                verdictContainer.innerHTML = `✓ Input habis di q5 (accept state) — Email '${email}' dinyatakan <b>FORMAT VALID</b> oleh mesin FSA.`;
+            } else {
+                pushLog(`Input habis, tetapi mesin terhenti di q${curState} (Bukan accept state) -> REJECT`, 'fail');
+                buatSFSvg(curState, 'reject');
+                verdictContainer.className = "verdict reject";
+                verdictContainer.innerHTML = `✗ String selesai dibaca, namun mesin tersangkut di q${curState} (bukan accept state) — Email <b>DITOLAK</b>.`;
+            }
+        } else {
+            verdictContainer.className = "verdict reject";
+            verdictContainer.innerHTML = `✗ Berhenti paksa di q${curState} — Karakter tidak memenuhi syarat transisi bahasa. Email <b>TIDAK VALID</b>.`;
+        }
+
+        document.getElementById('meta-text').innerText = "Simulasi selesai. Anda bisa mencoba alamat email baru.";
+        emailInput.disabled = false;
+        btn.disabled = false;
+        isRunning = false;
+    }
+
+    // Inisialisasi Tampilan Pertama Saat Web Dibuka
+    window.onload = () => {
+        buatSFSvg(0);
+        renderRules(0);
+        renderTape("ubed_dev@domain.com", {});
+    };
+</script>
+
+</body>
+</html>
